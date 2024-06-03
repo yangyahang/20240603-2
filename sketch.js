@@ -47,6 +47,10 @@ function draw() {
   translate(cam.width, 0);
   scale(-1, 1);
   image(cam, 0, 0);
+
+  // 更新插值因子
+  t += 0.01;
+  if (t > 1) t = 0; // 重設 t 以循環動畫
 }
 
 function drawSkeleton() {
@@ -63,40 +67,32 @@ function drawSkeleton() {
       pop();
     }
     // 眼睛
-    let partA = pose.keypoints[1];
-    let partB = pose.keypoints[2];
-    if (partA.score > 0.1 && partB.score > 0.1) {
+    let leftEye = pose.keypoints[1];
+    let rightEye = pose.keypoints[2];
+    if (leftEye.score > 0.1 && rightEye.score > 0.1) {
       push();
       imageMode(CENTER);
 
       // 插值計算位置
-      let newX = lerp(partA.x, partB.x, t);
-      let newY = lerp(partA.y, partB.y, t);
+      let newX = lerp(leftEye.x, rightEye.x, t);
+      let newY = lerp(leftEye.y, rightEye.y, t);
 
       image(GIFImg, newX, newY, 50, 50);
-
-      // 更新插值因子
-      t += 0.5;
-      if (t > 1) t = 0; // 重設 t 以循環動畫
 
       pop();
     }
     // 手肘
-    let partA = pose.keypoints[7];
-    let partB = pose.keypoints[8];
-    if (partA.score > 0.1 && partB.score > 0.1) {
+    let leftElbow = pose.keypoints[7];
+    let rightElbow = pose.keypoints[8];
+    if (leftElbow.score > 0.1 && rightElbow.score > 0.1) {
       push();
       imageMode(CENTER);
 
       // 插值計算位置
-      let newX = lerp(partA.x, partB.x, t);
-      let newY = lerp(partA.y, partB.y, t);
+      let newX = lerp(leftElbow.x, rightElbow.x, t);
+      let newY = lerp(leftElbow.y, rightElbow.y, t);
 
       image(GIFImg, newX, newY, 50, 50);
-
-      // 更新插值因子
-      t += 0.5;
-      if (t > 1) t = 0; // 重設 t 以循環動畫
 
       pop();
     }
