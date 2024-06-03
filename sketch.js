@@ -76,7 +76,7 @@ function drawSkeleton() {
       image(GIFImg, newX, newY, 50, 50);
 
       // 更新插值因子
-      t += 0.01;
+      t += 0.1;
       if (t > 1) t = 0; // 重設 t 以循環動畫
 
       pop();
