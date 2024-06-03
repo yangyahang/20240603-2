@@ -54,45 +54,49 @@ function draw() {
   image(cam, 0, 0);
 }
 
+let t = 0; // 用于插值的全局变量
+
 function drawSkeleton() {
-  // Draw all the tracked landmark points
+  // 绘制所有跟踪到的关键点
   for (let i = 0; i < poses.length; i++) {
-    pose = poses[i];
-    // text
-    partA = pose.keypoints[0];
+    let pose = poses[i];
+    // 显示文本
+    let partA = pose.keypoints[0];
     if (partA.score > 0.1) {
-      push()
-      textSize(40)
-      scale(-1, 1)
-      text("412737206楊雅涵",partA.x-width,partA.y-100)
-      pop()
+      push();
+      textSize(20);
+      scale(-1, 1);
+      text("412737206楊雅涵", partA.x - width - 100, partA.y - 150);
+      pop();
     }
-    // eyes
+    // 处理眼睛部分
     partA = pose.keypoints[1];
-    partB = pose.keypoints[2];
+    let partB = pose.keypoints[2];
     if (partA.score > 0.1 && partB.score > 0.1) {
-      push()
-      imageMode(CENTER)
-      // Interpolate position
+      push();
+      imageMode(CENTER);
+      
+      // 插值计算新位置
       let newX = lerp(partA.x, partB.x, t);
       let newY = lerp(partA.y, partB.y, t);
       
       image(GIFImg, newX, newY, 50, 50);
 
-      // Update interpolation factor
+      // 更新插值因子
       t += 0.01;
-      if (t > 1) t = 0; // Reset t to loop the animation
-      pop()
+      if (t > 1) t = 0; // 重置t以循环动画
+
+      pop();
     }
-    // elbow
+    // 处理肘部部分
     partA = pose.keypoints[7];
     partB = pose.keypoints[8];
     if (partA.score > 0.1 && partB.score > 0.1) {
-      push()
-      imageMode(CENTER)
-      image(GIFImg,partA.x,partA.y,50,50)
-      image(GIFImg,partB.x,partB.y,50,50)
-      pop()
+      push();
+      imageMode(CENTER);
+      image(GIFImg, partA.x, partA.y, 50, 50);
+      image(GIFImg, partB.x, partB.y, 50, 50);
+      pop();
     }
   }
 }
