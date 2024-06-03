@@ -62,9 +62,9 @@ function drawSkeleton() {
     partA = pose.keypoints[0];
     if (partA.score > 0.1) {
       push()
-      textSize(50)
+      textSize(40)
       scale(-1, 1)
-      text("412737206楊雅涵",partA.x-width,partA.y-200)
+      text("412737206楊雅涵",partA.x-width,partA.y-100)
       pop()
     }
     // eyes
@@ -74,7 +74,7 @@ function drawSkeleton() {
       push()
       imageMode(CENTER)
       image(GIFImg,partA.x,partA.y,50,50)
-      var vx=1
+      vx=1
       if(partA.x<partB.x){
         partA.x=partA.x+vx
       }
