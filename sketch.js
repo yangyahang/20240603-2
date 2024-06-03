@@ -73,14 +73,15 @@ function drawSkeleton() {
     if (partA.score > 0.1 && partB.score > 0.1) {
       push()
       imageMode(CENTER)
-      image(GIFImg,partA.x,partA.y,50,50)
-      vx=1
-      if(partA.x<partB.x){
-        partA.x=partA.x+vx
-      }
-      if(partA.x>partB.x){
-        partA.x=partA.x
-      }
+      // Interpolate position
+      let newX = lerp(partA.x, partB.x, t);
+      let newY = lerp(partA.y, partB.y, t);
+      
+      image(GIFImg, newX, newY, 50, 50);
+
+      // Update interpolation factor
+      t += 0.01;
+      if (t > 1) t = 0; // Reset t to loop the animation
       pop()
     }
     // elbow
