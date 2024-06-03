@@ -54,13 +54,13 @@ function draw() {
   image(cam, 0, 0);
 }
 
-let t = 0; // 用于插值的全局变量
+let t = 0; // 全域變數，用來追蹤插值的進度
 
 function drawSkeleton() {
-  // 绘制所有跟踪到的关键点
+  // 繪製所有追蹤到的關鍵點
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i];
-    // 显示文本
+    // 文字
     let partA = pose.keypoints[0];
     if (partA.score > 0.1) {
       push();
@@ -69,14 +69,14 @@ function drawSkeleton() {
       text("412737206楊雅涵", partA.x - width - 100, partA.y - 150);
       pop();
     }
-    // 处理眼睛部分
+    // 眼睛
     partA = pose.keypoints[1];
     let partB = pose.keypoints[2];
     if (partA.score > 0.1 && partB.score > 0.1) {
       push();
       imageMode(CENTER);
       
-      // 插值计算新位置
+      // 插值計算位置
       let newX = lerp(partA.x, partB.x, t);
       let newY = lerp(partA.y, partB.y, t);
       
@@ -84,11 +84,11 @@ function drawSkeleton() {
 
       // 更新插值因子
       t += 0.01;
-      if (t > 1) t = 0; // 重置t以循环动画
+      if (t > 1) t = 0; // 重設 t 以循環動畫
 
       pop();
     }
-    // 处理肘部部分
+    // 手肘
     partA = pose.keypoints[7];
     partB = pose.keypoints[8];
     if (partA.score > 0.1 && partB.score > 0.1) {
@@ -100,7 +100,6 @@ function drawSkeleton() {
     }
   }
 }
-
 function preload(){
 	GIFImg = loadImage("car.gif");
 }
