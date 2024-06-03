@@ -63,7 +63,7 @@ function drawSkeleton() {
       pop();
     }
     // 眼睛
-    partA = pose.keypoints[1];
+    let partA = pose.keypoints[1];
     let partB = pose.keypoints[2];
     if (partA.score > 0.1 && partB.score > 0.1) {
       push();
@@ -82,13 +82,22 @@ function drawSkeleton() {
       pop();
     }
     // 手肘
-    partA = pose.keypoints[7];
-    partB = pose.keypoints[8];
+    let partA = pose.keypoints[7];
+    let partB = pose.keypoints[8];
     if (partA.score > 0.1 && partB.score > 0.1) {
       push();
       imageMode(CENTER);
-      image(GIFImg, partA.x, partA.y, 50, 50);
-      image(GIFImg, partB.x, partB.y, 50, 50);
+
+      // 插值計算位置
+      let newX = lerp(partA.x, partB.x, t);
+      let newY = lerp(partA.y, partB.y, t);
+
+      image(GIFImg, newX, newY, 50, 50);
+
+      // 更新插值因子
+      t += 0.5;
+      if (t > 1) t = 0; // 重設 t 以循環動畫
+
       pop();
     }
   }
