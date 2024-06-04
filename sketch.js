@@ -63,7 +63,7 @@ function drawSkeleton() {
       push();
       textSize(20);
       scale(-1, 1);
-      text("412737206楊雅涵", partA.x - width - 100, partA.y - 150);
+      text("412737206楊雅涵", partA.x - width , partA.y - 150);
       pop();
     }
     // 眼睛
@@ -77,7 +77,7 @@ function drawSkeleton() {
       let newX = lerp(leftEye.x, rightEye.x, t);
       let newY = lerp(leftEye.y, rightEye.y, t);
 
-      image(GIFImg, newX, newY, 50, 50);
+      image(GIF1Img, newX, newY, 50, 50);
 
       pop();
     }
@@ -92,7 +92,7 @@ function drawSkeleton() {
       let newX = lerp(leftElbow.x, rightElbow.x, t);
       let newY = lerp(leftElbow.y, rightElbow.y, t);
 
-      image(GIFImg, newX, newY, 50, 50);
+      image(GIF2Img, newX, newY, 50, 50);
 
       pop();
     }
@@ -100,5 +100,6 @@ function drawSkeleton() {
 }
 
 function preload() {
-  GIFImg = loadImage("car.gif");
+  GIF1Img = loadImage("car.gif");
+  GIF2Img = loadImage("cat.gif");
 }
